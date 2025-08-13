@@ -2,12 +2,29 @@ package postgres
 
 import (
 	"database/sql"
+	"os"
+	"strings"
 
 	_ "github.com/lib/pq"
 )
 
 type PgDb struct {
 	Database *sql.DB
+}
+
+func (db *PgDb) ExecuteSqls(sqls []string) error {
+	for _, sql := range sqls {
+		err := db.ExecuteSql(sql)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (db *PgDb) ExecuteSql(sql string) error {
+	_, err := db.Database.Exec(sql)
+	return err
 }
 
 func NewPg() *PgDb {
@@ -22,13 +39,15 @@ func NewPg() *PgDb {
 	return &PgDb{Database: db}
 }
 
-func (pgDb *PgDb) Init() {
-	err := pgDb.createUserTable()
-	if err != nil {
-		panic(err)
-	}
+func ExecuteFromFile(path string) {
+	sqlStatements, err := os.ReadFile(path)
+	ifPanic(err)
+	sqlArray := strings.Split(string(sqlStatements), ";")
+	ifPanic(NewPg().ExecuteSqls(sqlArray))
 }
 
-func manyToManyTable(name string, relation int64) {
-
+func ifPanic(e error) {
+	if e != nil {
+		panic(e)
+	}
 }
