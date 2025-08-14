@@ -12,6 +12,7 @@ type User interface {
 	Person() common.Person
 	Address() common.Address
 	Ratings() rating.Ratings
+	Settings() UserSettings
 	Archive() error
 }
 
@@ -67,6 +68,10 @@ func (u SolidUser) Address() common.Address {
 
 func (u SolidUser) Ratings() rating.Ratings {
 	return u.user.Ratings()
+}
+
+func (u SolidUser) Settings() UserSettings {
+	return u.user.Settings()
 }
 
 func (u SolidUser) Archive() error {

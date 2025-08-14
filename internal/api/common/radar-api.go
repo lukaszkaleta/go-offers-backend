@@ -1,0 +1,51 @@
+package common
+
+// API
+
+type Radar interface {
+	Update(newModel *RadarModel) error
+	Model() *RadarModel
+}
+
+// Builder
+
+func RadarFromModel(model *RadarModel) Radar {
+	return SolidRadar{
+		model: model,
+	}
+}
+
+// Model
+
+type RadarModel struct {
+	Position  *PositionModel
+	Perimeter int
+}
+
+func (model *RadarModel) Change(newModel *RadarModel) {
+	model.Position.Change(newModel.Position)
+	model.Perimeter = newModel.Perimeter
+}
+
+// Solid
+
+type SolidRadar struct {
+	model *RadarModel
+	Radar Radar
+}
+
+func NewSolidRadar(model *RadarModel, Radar Radar) SolidRadar {
+	return SolidRadar{model, Radar}
+}
+
+func (radar SolidRadar) Update(newModel *RadarModel) error {
+	radar.model.Change(newModel)
+	if radar.Radar == nil {
+		return nil
+	}
+	return radar.Radar.Update(newModel)
+}
+
+func (radar SolidRadar) Model() *RadarModel {
+	return radar.model
+}

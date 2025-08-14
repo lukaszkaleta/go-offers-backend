@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/golang-jwt/jwt/v5"
 	"log"
+	"naborly/internal/api/offer"
 	"naborly/internal/api/user"
 	"naborly/internal/postgres"
 	"net/http"
@@ -32,12 +33,17 @@ func makeHttpHandlerFunc(f apiFunc) http.HandlerFunc {
 }
 
 type APIServer struct {
-	listenAddr string
-	Users      *postgres.PgUsers
+	listenAddr   string
+	Users        *postgres.PgUsers
+	GlobalOffers *postgres.PgGlobalOffers
 }
 
 func NewAPIServer(listenAddr string, pgDb *postgres.PgDb) *APIServer {
-	return &APIServer{listenAddr: listenAddr, Users: postgres.NewPgUsers(pgDb)}
+	return &APIServer{
+		listenAddr:   listenAddr,
+		Users:        postgres.NewPgUsers(pgDb),
+		GlobalOffers: &postgres.PgGlobalOffers{pgDb},
+	}
 }
 
 func (apiServer *APIServer) Run() {

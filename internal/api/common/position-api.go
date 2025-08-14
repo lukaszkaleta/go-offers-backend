@@ -9,6 +9,16 @@ type Position interface {
 
 // Builder
 
+func PositionFromModel(model *PositionModel) Position {
+	return SolidPosition{
+		model: model,
+	}
+}
+
+func NewPosition(lat float64, lon float64) Position {
+	return PositionFromModel(&PositionModel{lat, lon})
+}
+
 // Model
 
 type PositionModel struct {
@@ -25,7 +35,7 @@ func (model *PositionModel) Change(newModel *PositionModel) {
 
 type SolidPosition struct {
 	model    *PositionModel
-	Position Position
+	position Position
 }
 
 func NewSolidPosition(model *PositionModel, Position Position) SolidPosition {
@@ -34,10 +44,10 @@ func NewSolidPosition(model *PositionModel, Position Position) SolidPosition {
 
 func (addr SolidPosition) Update(newModel *PositionModel) error {
 	addr.model.Change(newModel)
-	if addr.Position == nil {
+	if addr.position == nil {
 		return nil
 	}
-	return addr.Position.Update(newModel)
+	return addr.position.Update(newModel)
 }
 
 func (addr SolidPosition) Model() *PositionModel {
