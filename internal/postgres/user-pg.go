@@ -28,7 +28,7 @@ func (pgUser PgUser) Ratings() rating.Ratings {
 }
 
 func (pgUser PgUser) Settings() user.UserSettings {
-	return NewPgSettings(pgUser.DB)
+	return NewPgUserSettings(pgUser.DB, pgUser.ID)
 }
 
 func (pgUser PgUser) Archive() error {

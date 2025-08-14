@@ -8,7 +8,7 @@ import (
 )
 
 func GlobalOfferRoutes(s *APIServer, router *http.ServeMux) {
-	router.HandleFunc("/offers/nearby/{lat}/{lon}", makeHttpHandlerFunc(s.handleGlobalOffersNearBy))
+	router.HandleFunc("/offers/nearby", makeHttpHandlerFunc(s.handleGlobalOffersNearBy))
 }
 
 func (s *APIServer) handleGlobalOffersNearBy(w http.ResponseWriter, r *http.Request) error {

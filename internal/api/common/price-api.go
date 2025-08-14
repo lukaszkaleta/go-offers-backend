@@ -1,5 +1,7 @@
 package common
 
+import "fmt"
+
 // API
 
 type Price interface {
@@ -25,6 +27,14 @@ type PriceModel struct {
 func (model *PriceModel) Change(newModel *PriceModel) {
 	model.Value = newModel.Value
 	model.Currency = newModel.Currency
+}
+
+func (model *PriceModel) UserFriendly() string {
+	return fmt.Sprintf("%s %s", model.DecimalValue(), model.Currency)
+}
+
+func (model *PriceModel) DecimalValue() string {
+	return fmt.Sprintf("%.2f", float64(model.Value)/100)
 }
 
 // Solid

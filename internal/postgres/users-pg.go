@@ -10,8 +10,8 @@ type PgUsers struct {
 	DB *PgDb
 }
 
-func NewPgUsers(s *PgDb) *PgUsers {
-	return &PgUsers{DB: s}
+func NewPgUsers(s *PgDb) user.Users {
+	return PgUsers{DB: s}
 }
 
 func (pgUsers PgUsers) Add(model *common.PersonModel) (user.User, error) {

@@ -23,7 +23,7 @@ func NewPosition(lat float64, lon float64) Position {
 
 type PositionModel struct {
 	Lat float64 `json:"lat"`
-	Lon float64 `json:"long"`
+	Lon float64 `json:"lon"`
 }
 
 func (model *PositionModel) Change(newModel *PositionModel) {

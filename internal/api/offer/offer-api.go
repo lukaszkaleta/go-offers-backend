@@ -25,14 +25,14 @@ type OfferModel struct {
 func (m *OfferModel) Hint() *OfferHint {
 	return &OfferHint{
 		Position: m.Position,
-		price:    string(m.Price.Value) + "NOK",
+		Price:    m.Price.UserFriendly(),
 	}
 }
 
 type OfferHint struct {
 	Id       int                   `json:"id"`
 	Position *common.PositionModel `json:"position"`
-	price    string
+	Price    string                `json:"price"`
 }
 
 // Builder

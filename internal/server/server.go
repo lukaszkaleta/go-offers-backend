@@ -3,13 +3,14 @@ package server
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/golang-jwt/jwt/v5"
 	"log"
 	"naborly/internal/api/offer"
 	"naborly/internal/api/user"
 	"naborly/internal/postgres"
 	"net/http"
 	"strconv"
+
+	"github.com/golang-jwt/jwt/v5"
 )
 
 func WriteJson(w http.ResponseWriter, status int, payload any) error {
@@ -34,15 +35,17 @@ func makeHttpHandlerFunc(f apiFunc) http.HandlerFunc {
 
 type APIServer struct {
 	listenAddr   string
-	Users        *postgres.PgUsers
-	GlobalOffers *postgres.PgGlobalOffers
+	Users        user.Users
+	GlobalOffers offer.GlobalOffers
 }
 
 func NewAPIServer(listenAddr string, pgDb *postgres.PgDb) *APIServer {
+	users := postgres.NewPgUsers(pgDb)
+	offers := postgres.NewPgGlobalOffers(pgDb)
 	return &APIServer{
 		listenAddr:   listenAddr,
-		Users:        postgres.NewPgUsers(pgDb),
-		GlobalOffers: &postgres.PgGlobalOffers{pgDb},
+		Users:        users,
+		GlobalOffers: offers,
 	}
 }
 

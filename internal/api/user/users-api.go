@@ -5,7 +5,7 @@ import (
 )
 
 type Users interface {
-	Add(model common.PersonModel) (User, error)
+	Add(model *common.PersonModel) (User, error)
 	ById(id int) (User, error)
 	ListAll() ([]User, error)
 }
