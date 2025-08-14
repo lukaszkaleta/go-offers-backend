@@ -2,6 +2,7 @@ package user
 
 import (
 	"naborly/internal/api/common"
+	"naborly/internal/api/offer"
 	"naborly/internal/api/rating"
 )
 
@@ -13,6 +14,7 @@ type User interface {
 	Address() common.Address
 	Ratings() rating.Ratings
 	Settings() UserSettings
+	Offers() offer.Offers
 	Archive() error
 }
 
@@ -74,6 +76,12 @@ func (u SolidUser) Settings() UserSettings {
 	return u.user.Settings()
 }
 
+func (u SolidUser) Offers() offer.Offers {
+	return u.user.Offers()
+}
+
 func (u SolidUser) Archive() error {
 	return nil
 }
+
+// Relations

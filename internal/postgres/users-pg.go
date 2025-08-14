@@ -16,7 +16,7 @@ func NewPgUsers(s *PgDb) user.Users {
 
 func (pgUsers PgUsers) Add(model *common.PersonModel) (user.User, error) {
 	userId := 0
-	query := "INSERT INTO business_user(person_first_name, person_last_name, person_email, person_phone) VALUES( $1, $2, $3, $4 ) returning id"
+	query := "INSERT INTO users(person_first_name, person_last_name, person_email, person_phone) VALUES( $1, $2, $3, $4 ) returning id"
 	row := pgUsers.DB.Database.QueryRow(query, model.FirstName, model.LastName, model.Email, model.Phone)
 	row.Scan(&userId)
 	pgUser := PgUser{
@@ -33,7 +33,7 @@ func (pgUsers PgUsers) Add(model *common.PersonModel) (user.User, error) {
 func (pgUsers PgUsers) ById(id int) (user.User, error) {
 	personRow := new(common.PersonModel)
 	addressRow := new(common.AddressModel)
-	query := "select * from business_user where id = $1"
+	query := "select * from users where id = $1"
 	row := pgUsers.DB.Database.QueryRow(query, id)
 	err := row.Scan(
 		&id,
@@ -56,7 +56,7 @@ func (pgUsers PgUsers) ById(id int) (user.User, error) {
 }
 
 func (pgUsers PgUsers) ListAll() ([]user.User, error) {
-	query := "select * from business_user"
+	query := "select * from users"
 	rows, err := pgUsers.DB.Database.Query(query)
 	if err != nil {
 		return nil, err

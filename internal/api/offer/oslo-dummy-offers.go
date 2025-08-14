@@ -12,13 +12,21 @@ const osloEast = 11140104
 const priceMax = 1000000
 const priceMin = 100000
 
-func randomPosition() *common.PositionModel {
+func RandomPosition() *common.PositionModel {
 	lat := rand.Intn(osloNorth-osloSouth) + osloSouth
 	lon := rand.Intn(osloEast-osloWest) + osloWest
 	return &common.PositionModel{lat, lon}
 }
 
-func randomPrice() *common.PriceModel {
+func RandomPositions(count int) []*common.PositionModel {
+	var positions []*common.PositionModel
+	for i := 0; i < count; i++ {
+		positions = append(positions, RandomPosition())
+	}
+	return positions
+}
+
+func RandomPrice() *common.PriceModel {
 	return &common.PriceModel{
 		Value:    rand.Intn(priceMax-priceMin) + priceMin,
 		Currency: "NOK",
@@ -28,8 +36,8 @@ func randomPrice() *common.PriceModel {
 func randomOffer(id int) OfferHint {
 	return OfferHint{
 		Id:       id,
-		Position: randomPosition(),
-		Price:    randomPrice().UserFriendly(),
+		Position: RandomPosition(),
+		Price:    RandomPrice().UserFriendly(),
 	}
 }
 

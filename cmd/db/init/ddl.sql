@@ -1,4 +1,4 @@
-CREATE TABLE if not exists business_user (
+CREATE TABLE if not exists users (
     id serial primary key,
     person_first_name text not null default '',
     person_last_name text not null default '',
@@ -22,5 +22,12 @@ CREATE TABLE if not exists offer (
     address_postal_code text not null default '',
     address_district   text not null default '',
     position_latitude int not null default 0,
-    position_longitude int not null default 0
+    position_longitude int not null default 0,
+    price_value int not null default 0,
+    price_currency text not null default 'NOK'
+);
+
+CREATE TABLE if not exists user_offer (
+    user_id bigint not null references users,
+    offer_id bigint not null references offer
 );

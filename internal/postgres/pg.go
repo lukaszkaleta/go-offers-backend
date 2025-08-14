@@ -15,9 +15,7 @@ type PgDb struct {
 func (db *PgDb) ExecuteSqls(sqls []string) error {
 	for _, sql := range sqls {
 		err := db.ExecuteSql(sql)
-		if err != nil {
-			return err
-		}
+		ifPanic(err)
 	}
 	return nil
 }

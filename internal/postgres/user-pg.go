@@ -2,6 +2,7 @@ package postgres
 
 import (
 	"naborly/internal/api/common"
+	"naborly/internal/api/offer"
 	"naborly/internal/api/rating"
 	"naborly/internal/api/user"
 )
@@ -35,6 +36,15 @@ func (pgUser PgUser) Archive() error {
 	return nil
 }
 
+func (pgUser PgUser) Offers() offer.Offers {
+	tableEntity := pgUser.tableEntity()
+	return PgRelationOffers{
+		DB:       pgUser.DB,
+		offers:   &PgOffers{DB: pgUser.DB},
+		relation: tableEntity.RelationEntityWithColumnName("user_offer", "user_id"),
+	}
+}
+
 func (pgUser PgUser) tableEntity() TableEntity {
-	return pgUser.DB.tableEntity("business_user", pgUser.ID)
+	return pgUser.DB.tableEntity("users", pgUser.ID)
 }
