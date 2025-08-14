@@ -9,6 +9,6 @@ type PgGlobalOffers struct {
 	DB *PgDb
 }
 
-func (globalOffers PgGlobalOffers) NearBy(position common.Radar) ([]offer.Offer, error) {
+func (globalOffers PgGlobalOffers) NearBy(radar *common.RadarModel) ([]offer.Offer, error) {
 	return nil, nil
 }

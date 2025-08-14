@@ -27,6 +27,10 @@ func (pgUser PgUser) Ratings() rating.Ratings {
 	return NewPgRatings(pgUser.DB, pgUser.tableEntity())
 }
 
+func (pgUser PgUser) Settings() user.UserSettings {
+	return NewPgSettings(pgUser.DB)
+}
+
 func (pgUser PgUser) Archive() error {
 	return nil
 }

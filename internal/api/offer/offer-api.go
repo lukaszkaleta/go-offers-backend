@@ -10,6 +10,7 @@ type Offer interface {
 	Model() *OfferModel
 	Address() common.Address
 	Position() common.Position
+	Price() common.Price
 }
 
 // Model
@@ -17,7 +18,21 @@ type Offer interface {
 type OfferModel struct {
 	Id       int                   `json:"id"`
 	Position *common.PositionModel `json:"position"`
+	Price    *common.PriceModel    `json:"price"`
 	Address  *common.AddressModel  `json:"address"`
+}
+
+func (m *OfferModel) Hint() *OfferHint {
+	return &OfferHint{
+		Position: m.Position,
+		price:    string(m.Price.Value) + "NOK",
+	}
+}
+
+type OfferHint struct {
+	Id       int                   `json:"id"`
+	Position *common.PositionModel `json:"position"`
+	price    string
 }
 
 // Builder
@@ -50,6 +65,16 @@ func (u SolidOffer) Position() common.Position {
 		)
 	}
 	return common.NewSolidPosition(u.Model().Position, nil)
+}
+
+func (u SolidOffer) Price() common.Price {
+	if u.Offer != nil {
+		return common.NewSolidPrice(
+			u.Model().Price,
+			u.Offer.Price(),
+		)
+	}
+	return common.NewSolidPrice(u.Model().Price, nil)
 }
 
 func (u SolidOffer) Address() common.Address {

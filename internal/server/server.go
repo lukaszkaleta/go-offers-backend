@@ -52,6 +52,7 @@ func (apiServer *APIServer) Run() {
 	UserRoutes(apiServer, router)
 	UserRatingsRoutes(apiServer, router)
 	UserRatingRoutes(apiServer, router)
+	GlobalOfferRoutes(apiServer, router)
 
 	log.Println("Api Server listening on", apiServer.listenAddr)
 	http.ListenAndServe(apiServer.listenAddr, router)
