@@ -35,16 +35,6 @@ type OfferHint struct {
 	Price    string                `json:"price"`
 }
 
-// Builder
-
-func NewSolidOffer(Offer Offer, model *OfferModel, id int) Offer {
-	return SolidOffer{
-		id,
-		model,
-		Offer,
-	}
-}
-
 // Solid
 
 type SolidOffer struct {
@@ -53,6 +43,13 @@ type SolidOffer struct {
 	Offer Offer
 }
 
+func NewSolidOffer(model *OfferModel, Offer Offer, id int) Offer {
+	return SolidOffer{
+		id,
+		model,
+		Offer,
+	}
+}
 func (u SolidOffer) Model() *OfferModel {
 	return u.model
 }

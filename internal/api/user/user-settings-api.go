@@ -17,14 +17,20 @@ type UserSettingsModel struct {
 	Radar *common.RadarModel `json:"radar"`
 }
 
-// Builder
-
 // Solid
 
 type SolidUserSettings struct {
 	Id           int
 	model        *UserSettingsModel
-	UserSettings UserSettings
+	userSettings UserSettings
+}
+
+func NewSolidUserSettings(model *UserSettingsModel, userSettings UserSettings, id int) SolidUserSettings {
+	return SolidUserSettings{
+		Id:           id,
+		model:        model,
+		userSettings: userSettings,
+	}
 }
 
 func (u SolidUserSettings) Model() *UserSettingsModel {
@@ -32,10 +38,10 @@ func (u SolidUserSettings) Model() *UserSettingsModel {
 }
 
 func (u SolidUserSettings) Radar() common.Radar {
-	if u.UserSettings != nil {
+	if u.userSettings != nil {
 		return common.NewSolidRadar(
 			u.Model().Radar,
-			u.UserSettings.Radar(),
+			u.userSettings.Radar(),
 		)
 	}
 	return common.NewSolidRadar(u.Model().Radar, nil)

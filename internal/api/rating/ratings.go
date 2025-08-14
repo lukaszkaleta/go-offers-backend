@@ -4,7 +4,7 @@ package rating
 
 type Ratings interface {
 	ById(id int) (Rating, error)
-	Add(model RatingModel) (Rating, error)
+	Add(model *RatingModel) (Rating, error)
 }
 
 // Builders
@@ -19,8 +19,8 @@ type SolidRatings struct {
 	ratings Ratings
 }
 
-func (s SolidRatings) Add(r RatingModel) (Rating, error) {
-	return SolidRating{}, nil
+func (s SolidRatings) Add(r RatingModel) (*Rating, error) {
+	return nil, nil
 }
 
 func (s SolidRatings) ById(id int) (Rating, error) {

@@ -41,7 +41,7 @@ func (model *PriceModel) DecimalValue() string {
 
 type SolidPrice struct {
 	model *PriceModel
-	Price Price
+	price Price
 }
 
 func NewSolidPrice(model *PriceModel, Price Price) SolidPrice {
@@ -50,10 +50,10 @@ func NewSolidPrice(model *PriceModel, Price Price) SolidPrice {
 
 func (addr SolidPrice) Update(newModel *PriceModel) error {
 	addr.model.Change(newModel)
-	if addr.Price == nil {
+	if addr.price == nil {
 		return nil
 	}
-	return addr.Price.Update(newModel)
+	return addr.price.Update(newModel)
 }
 
 func (addr SolidPrice) Model() *PriceModel {

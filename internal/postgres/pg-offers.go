@@ -21,13 +21,13 @@ func (pgOffers PgOffers) AddFromPosition(model *common.PositionModel) (offer.Off
 		ID: offerId,
 	}
 	return offer.NewSolidOffer(
-		pgOffer,
 		&offer.OfferModel{
 			Id:       offerId,
 			Position: model,
 			Address:  &common.AddressModel{},
 			Price:    &common.PriceModel{},
 		},
+		pgOffer,
 		offerId,
 	), nil
 }

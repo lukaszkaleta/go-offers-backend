@@ -44,13 +44,13 @@ func (globalOffers PgGlobalOffers) NearBy(radar *common.RadarModel) ([]offer.Off
 		}
 
 		solidOffer := offer.NewSolidOffer(
-			pgOffer,
 			&offer.OfferModel{
 				Id:       id,
 				Address:  addressRow,
 				Price:    priceRow,
 				Position: positionRow,
 			},
+			pgOffer,
 			id)
 		offers = append(offers, solidOffer)
 	}

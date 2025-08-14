@@ -31,7 +31,7 @@ func (model *RadarModel) Change(newModel *RadarModel) {
 
 type SolidRadar struct {
 	model *RadarModel
-	Radar Radar
+	radar Radar
 }
 
 func NewSolidRadar(model *RadarModel, Radar Radar) SolidRadar {
@@ -40,10 +40,10 @@ func NewSolidRadar(model *RadarModel, Radar Radar) SolidRadar {
 
 func (radar SolidRadar) Update(newModel *RadarModel) error {
 	radar.model.Change(newModel)
-	if radar.Radar == nil {
+	if radar.radar == nil {
 		return nil
 	}
-	return radar.Radar.Update(newModel)
+	return radar.radar.Update(newModel)
 }
 
 func (radar SolidRadar) Model() *RadarModel {

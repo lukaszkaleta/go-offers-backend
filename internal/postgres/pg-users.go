@@ -24,8 +24,8 @@ func (pgUsers PgUsers) Add(model *common.PersonModel) (user.User, error) {
 		ID: userId,
 	}
 	return user.NewSolidUser(
-		pgUser,
 		&user.UserModel{Id: userId, Person: model, Address: &common.AddressModel{}},
+		pgUser,
 		userId,
 	), nil
 }
@@ -52,7 +52,11 @@ func (pgUsers PgUsers) ById(id int) (user.User, error) {
 		return pgUser, err
 	}
 
-	return user.NewSolidUser(pgUser, &user.UserModel{Id: id, Person: personRow, Address: addressRow}, id), nil
+	return user.NewSolidUser(
+		&user.UserModel{Id: id, Person: personRow, Address: addressRow},
+		pgUser,
+		id,
+	), nil
 }
 
 func (pgUsers PgUsers) ListAll() ([]user.User, error) {
@@ -71,7 +75,7 @@ func (pgUsers PgUsers) ListAll() ([]user.User, error) {
 			return nil, err
 		}
 		pgUser := PgUser{DB: pgUsers.DB, ID: id}
-		solidUser := user.NewSolidUser(pgUser, userModel, id)
+		solidUser := user.NewSolidUser(userModel, pgUser, id)
 		users = append(users, solidUser)
 	}
 	return users, nil

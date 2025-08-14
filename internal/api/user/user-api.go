@@ -28,14 +28,6 @@ type UserModel struct {
 
 // Builder
 
-func NewSolidUser(user User, model *UserModel, id int) User {
-	return SolidUser{
-		id,
-		model,
-		user,
-	}
-}
-
 // Solid
 
 type SolidUser struct {
@@ -44,6 +36,13 @@ type SolidUser struct {
 	user  User
 }
 
+func NewSolidUser(model *UserModel, user User, id int) User {
+	return SolidUser{
+		id,
+		model,
+		user,
+	}
+}
 func (u SolidUser) Model() *UserModel {
 	return u.model
 }

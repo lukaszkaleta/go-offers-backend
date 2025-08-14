@@ -2,7 +2,7 @@ package rating
 
 // API
 type Rating interface {
-	Model() RatingModel
+	Model() *RatingModel
 	Update(rating Rating) error
 }
 
@@ -22,11 +22,19 @@ func (m RatingModel) Change(rating Rating) {
 
 type SolidRating struct {
 	Id     int
-	model  RatingModel
+	model  *RatingModel
 	rating Rating
 }
 
-func (s SolidRating) Model() RatingModel {
+func NewSolidRating(ratingModel *RatingModel, rating Rating, id int) SolidRating {
+	return SolidRating{
+		model:  ratingModel,
+		rating: rating,
+		Id:     id,
+	}
+}
+
+func (s SolidRating) Model() *RatingModel {
 	return s.model
 }
 
