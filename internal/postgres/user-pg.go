@@ -36,9 +36,5 @@ func (pgUser PgUser) Archive() error {
 }
 
 func (pgUser PgUser) tableEntity() TableEntity {
-	return pgUser.namedTableEntity("business_user")
-}
-
-func (pgUser PgUser) namedTableEntity(name string) TableEntity {
-	return TableEntity{Name: name, Id: pgUser.ID}
+	return pgUser.DB.tableEntity("business_user", pgUser.ID)
 }

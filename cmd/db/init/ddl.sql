@@ -13,3 +13,14 @@ CREATE TABLE if not exists business_user (
     settings_radar_position_latitude int not null default 0,
     settings_radar_position_longitude int not null default 0
 );
+
+CREATE TABLE if not exists offer (
+    id serial primary key,
+    address_line1 text not null default '',
+    address_line2 text not null default '',
+    address_city       text not null default '',
+    address_postal_code text not null default '',
+    address_district   text not null default '',
+    position_latitude int not null default 0,
+    position_longitude int not null default 0
+);

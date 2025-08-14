@@ -20,7 +20,7 @@ func PriceFromModel(model *PriceModel) Price {
 // Model
 
 type PriceModel struct {
-	Value    int64  `json:"value"`
+	Value    int    `json:"value"`
 	Currency string `json:"currency"`
 }
 

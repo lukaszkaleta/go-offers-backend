@@ -1,6 +1,9 @@
 package offer
 
+import "naborly/internal/api/common"
+
 type Offers interface {
+	AddFromPosition(model *common.PositionModel) (Offer, error)
 }
 
 func OfferModels(offers []Offer) []*OfferModel {

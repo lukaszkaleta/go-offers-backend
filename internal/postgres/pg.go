@@ -39,6 +39,10 @@ func NewPg() *PgDb {
 	return &PgDb{Database: db}
 }
 
+func (db *PgDb) tableEntity(name string, id int) TableEntity {
+	return TableEntity{Name: name, Id: id}
+}
+
 func ExecuteFromFile(path string) {
 	sqlStatements, err := os.ReadFile(path)
 	ifPanic(err)
