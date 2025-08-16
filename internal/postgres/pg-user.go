@@ -12,31 +12,31 @@ type PgUser struct {
 	ID int
 }
 
-func (pgUser PgUser) Address() common.Address {
+func (pgUser *PgUser) Address() common.Address {
 	return PgAddress{pgUser.DB, pgUser.tableEntity()}
 }
 
-func (pgUser PgUser) Model() *user.UserModel {
+func (pgUser *PgUser) Model() *user.UserModel {
 	return &user.UserModel{}
 }
 
-func (pgUser PgUser) Person() common.Person {
+func (pgUser *PgUser) Person() common.Person {
 	return PgPerson{pgUser.DB, pgUser.tableEntity()}
 }
 
-func (pgUser PgUser) Ratings() rating.Ratings {
+func (pgUser *PgUser) Ratings() rating.Ratings {
 	return NewPgRatings(pgUser.DB, pgUser.tableEntity())
 }
 
-func (pgUser PgUser) Settings() user.UserSettings {
+func (pgUser *PgUser) Settings() user.UserSettings {
 	return NewPgUserSettings(pgUser.DB, pgUser.ID)
 }
 
-func (pgUser PgUser) Archive() error {
+func (pgUser *PgUser) Archive() error {
 	return nil
 }
 
-func (pgUser PgUser) Offers() offer.Offers {
+func (pgUser *PgUser) Offers() offer.Offers {
 	tableEntity := pgUser.tableEntity()
 	return PgRelationOffers{
 		DB:       pgUser.DB,
@@ -45,6 +45,6 @@ func (pgUser PgUser) Offers() offer.Offers {
 	}
 }
 
-func (pgUser PgUser) tableEntity() TableEntity {
+func (pgUser *PgUser) tableEntity() TableEntity {
 	return pgUser.DB.tableEntity("users", pgUser.ID)
 }

@@ -11,13 +11,13 @@ type PgUserSettings struct {
 }
 
 func NewPgUserSettings(db *PgDb, id int) user.UserSettings {
-	return PgUserSettings{db, id}
+	return &PgUserSettings{db, id}
 }
 
-func (pgUserSetting PgUserSettings) Model() *user.UserSettingsModel {
+func (pgUserSetting *PgUserSettings) Model() *user.UserSettingsModel {
 	return nil
 }
 
-func (pgUserSetting PgUserSettings) Radar() common.Radar {
+func (pgUserSetting *PgUserSettings) Radar() common.Radar {
 	return nil
 }

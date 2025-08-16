@@ -26,7 +26,7 @@ func (apiServer *APIServer) handleUserRatings(
 	if err != nil {
 		return err
 	}
-	user.Ratings().Add(*ratingPayload)
+	user.Ratings().Add(ratingPayload)
 
 	return WriteJson(w, http.StatusOK, ratingPayload)
 }

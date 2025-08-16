@@ -5,8 +5,8 @@ import "fmt"
 // API
 
 type Price interface {
-	Update(newModel *PriceModel) error
 	Model() *PriceModel
+	Update(newModel *PriceModel) error
 }
 
 // Builder
@@ -44,8 +44,8 @@ type SolidPrice struct {
 	price Price
 }
 
-func NewSolidPrice(model *PriceModel, Price Price) SolidPrice {
-	return SolidPrice{model, Price}
+func NewSolidPrice(model *PriceModel, Price Price) Price {
+	return &SolidPrice{model, Price}
 }
 
 func (addr SolidPrice) Update(newModel *PriceModel) error {

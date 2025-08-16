@@ -1,6 +1,7 @@
 package offer
 
 import (
+	"fmt"
 	"math/rand"
 	"naborly/internal/api/common"
 )
@@ -11,6 +12,11 @@ const osloWest = 10412946
 const osloEast = 11140104
 const priceMax = 1000000
 const priceMin = 100000
+
+func OsloMiddle() {
+	fmt.Println((osloNorth + osloSouth) / 2)
+	fmt.Println((osloEast + osloWest) / 2)
+}
 
 func RandomPosition() *common.PositionModel {
 	lat := rand.Intn(osloNorth-osloSouth) + osloSouth

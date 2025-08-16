@@ -3,8 +3,8 @@ package common
 // API
 
 type Radar interface {
-	Update(newModel *RadarModel) error
 	Model() *RadarModel
+	Update(newModel *RadarModel) error
 }
 
 // Builder
@@ -34,8 +34,8 @@ type SolidRadar struct {
 	radar Radar
 }
 
-func NewSolidRadar(model *RadarModel, Radar Radar) SolidRadar {
-	return SolidRadar{model, Radar}
+func NewSolidRadar(model *RadarModel, Radar Radar) Radar {
+	return &SolidRadar{model, Radar}
 }
 
 func (radar SolidRadar) Update(newModel *RadarModel) error {

@@ -9,10 +9,14 @@ type PgRating struct {
 	Id int
 }
 
-func NewPgRating(db *PgDb, id int) PgRating {
-	return PgRating{db, id}
+func NewPgRating(db *PgDb, id int) rating.Rating {
+	return &PgRating{db, id}
 }
 
-func (pgRating PgRating) Update(rating rating.Rating) {
+func (pgRating *PgRating) Model() rating.RatingModel {
+	return rating.RatingModel{}
+}
+
+func (pgRating *PgRating) Update(rating rating.Rating) {
 
 }

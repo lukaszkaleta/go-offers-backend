@@ -3,8 +3,8 @@ package common
 // API
 
 type Position interface {
-	Update(newModel *PositionModel) error
 	Model() *PositionModel
+	Update(newModel *PositionModel) error
 }
 
 // Builder
@@ -50,8 +50,8 @@ type SolidPosition struct {
 	position Position
 }
 
-func NewSolidPosition(model *PositionModel, Position Position) SolidPosition {
-	return SolidPosition{model, Position}
+func NewSolidPosition(model *PositionModel, Position Position) Position {
+	return &SolidPosition{model, Position}
 }
 
 func (addr SolidPosition) Update(newModel *PositionModel) error {

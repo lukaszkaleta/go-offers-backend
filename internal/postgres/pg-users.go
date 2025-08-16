@@ -11,10 +11,10 @@ type PgUsers struct {
 }
 
 func NewPgUsers(s *PgDb) user.Users {
-	return PgUsers{DB: s}
+	return &PgUsers{DB: s}
 }
 
-func (pgUsers PgUsers) Add(model *common.PersonModel) (user.User, error) {
+func (pgUsers *PgUsers) Add(model *common.PersonModel) (user.User, error) {
 	userId := 0
 	query := "INSERT INTO users(person_first_name, person_last_name, person_email, person_phone) VALUES( $1, $2, $3, $4 ) returning id"
 	row := pgUsers.DB.Database.QueryRow(query, model.FirstName, model.LastName, model.Email, model.Phone)
@@ -30,7 +30,7 @@ func (pgUsers PgUsers) Add(model *common.PersonModel) (user.User, error) {
 	), nil
 }
 
-func (pgUsers PgUsers) ById(id int) (user.User, error) {
+func (pgUsers *PgUsers) ById(id int) (user.User, error) {
 	personRow := new(common.PersonModel)
 	addressRow := new(common.AddressModel)
 	query := "select * from users where id = $1"
@@ -59,7 +59,7 @@ func (pgUsers PgUsers) ById(id int) (user.User, error) {
 	), nil
 }
 
-func (pgUsers PgUsers) ListAll() ([]user.User, error) {
+func (pgUsers *PgUsers) ListAll() ([]user.User, error) {
 	query := "select * from users"
 	rows, err := pgUsers.DB.Database.Query(query)
 	if err != nil {

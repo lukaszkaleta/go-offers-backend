@@ -44,7 +44,7 @@ type SolidOffer struct {
 }
 
 func NewSolidOffer(model *OfferModel, Offer Offer, id int) Offer {
-	return SolidOffer{
+	return &SolidOffer{
 		id,
 		model,
 		Offer,

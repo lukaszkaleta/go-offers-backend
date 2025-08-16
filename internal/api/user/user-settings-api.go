@@ -25,8 +25,8 @@ type SolidUserSettings struct {
 	userSettings UserSettings
 }
 
-func NewSolidUserSettings(model *UserSettingsModel, userSettings UserSettings, id int) SolidUserSettings {
-	return SolidUserSettings{
+func NewSolidUserSettings(model *UserSettingsModel, userSettings UserSettings, id int) UserSettings {
+	return &SolidUserSettings{
 		Id:           id,
 		model:        model,
 		userSettings: userSettings,

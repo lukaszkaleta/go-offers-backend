@@ -26,8 +26,6 @@ type UserModel struct {
 	Address *common.AddressModel `json:"address"`
 }
 
-// Builder
-
 // Solid
 
 type SolidUser struct {
@@ -37,12 +35,13 @@ type SolidUser struct {
 }
 
 func NewSolidUser(model *UserModel, user User, id int) User {
-	return SolidUser{
+	return &SolidUser{
 		id,
 		model,
 		user,
 	}
 }
+
 func (u SolidUser) Model() *UserModel {
 	return u.model
 }

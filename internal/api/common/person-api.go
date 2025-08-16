@@ -2,8 +2,8 @@ package common
 
 // API
 type Person interface {
-	Update(person *PersonModel) error
 	Model() *PersonModel
+	Update(person *PersonModel) error
 }
 
 // Builders
@@ -31,8 +31,8 @@ type SolidPerson struct {
 	person Person
 }
 
-func NewSolidPerson(model *PersonModel, person Person) SolidPerson {
-	return SolidPerson{model, person}
+func NewSolidPerson(model *PersonModel, person Person) Person {
+	return &SolidPerson{model, person}
 }
 
 func (p SolidPerson) Update(newModel *PersonModel) error {

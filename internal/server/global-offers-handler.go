@@ -9,6 +9,7 @@ import (
 
 func GlobalOfferRoutes(s *APIServer, router *http.ServeMux) {
 	router.HandleFunc("/offers/nearby", makeHttpHandlerFunc(s.handleGlobalOffersNearBy))
+	router.HandleFunc("/offers/preview/{offerId}", makeHttpHandlerFunc(s.handleGlobalOfferPreview))
 }
 
 func (s *APIServer) handleGlobalOffersNearBy(w http.ResponseWriter, r *http.Request) error {
@@ -21,4 +22,8 @@ func (s *APIServer) handleGlobalOffersNearBy(w http.ResponseWriter, r *http.Requ
 		return err
 	}
 	return WriteJson(w, http.StatusOK, offer.OfferHints(offers))
+}
+
+func (s *APIServer) handleGlobalOfferPreview(w http.ResponseWriter, r *http.Request) error {
+	return WriteJson(w, http.StatusOK, nil)
 }

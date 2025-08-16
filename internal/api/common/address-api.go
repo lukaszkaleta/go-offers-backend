@@ -3,8 +3,8 @@ package common
 // API
 
 type Address interface {
-	Update(newModel *AddressModel) error
 	Model() *AddressModel
+	Update(newModel *AddressModel) error
 }
 
 // Builder
@@ -34,8 +34,8 @@ type SolidAddress struct {
 	address Address
 }
 
-func NewSolidAddress(model *AddressModel, address Address) SolidAddress {
-	return SolidAddress{model, address}
+func NewSolidAddress(model *AddressModel, address Address) Address {
+	return &SolidAddress{model, address}
 }
 
 func (addr SolidAddress) Update(newModel *AddressModel) error {

@@ -11,7 +11,7 @@ type PgOffers struct {
 	Ids []int
 }
 
-func (pgOffers PgOffers) AddFromPosition(model *common.PositionModel) (offer.Offer, error) {
+func (pgOffers *PgOffers) AddFromPosition(model *common.PositionModel) (offer.Offer, error) {
 	offerId := 0
 	query := "INSERT INTO offer(position_latitude, position_longitude) VALUES( $1, $2 ) returning id"
 	row := pgOffers.DB.Database.QueryRow(query, model.Lat, model.Lon)

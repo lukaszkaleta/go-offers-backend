@@ -3,7 +3,7 @@ package rating
 // API
 type Rating interface {
 	Model() *RatingModel
-	Update(rating Rating) error
+	Update(rating *RatingModel) error
 }
 
 // Model
@@ -13,9 +13,9 @@ type RatingModel struct {
 	Score       int
 }
 
-func (m RatingModel) Change(rating Rating) {
-	m.Score = rating.Model().Score
-	m.Description = rating.Model().Description
+func (m *RatingModel) Change(newModel *RatingModel) {
+	m.Score = newModel.Score
+	m.Description = newModel.Description
 }
 
 // Solid
@@ -26,19 +26,19 @@ type SolidRating struct {
 	rating Rating
 }
 
-func NewSolidRating(ratingModel *RatingModel, rating Rating, id int) SolidRating {
-	return SolidRating{
+func NewSolidRating(ratingModel *RatingModel, rating Rating, id int) Rating {
+	return &SolidRating{
 		model:  ratingModel,
 		rating: rating,
 		Id:     id,
 	}
 }
 
-func (s SolidRating) Model() *RatingModel {
+func (s *SolidRating) Model() *RatingModel {
 	return s.model
 }
 
-func (s SolidRating) Update(rating Rating) error {
-	s.model.Change(rating)
+func (s *SolidRating) Update(newModel *RatingModel) error {
+	s.model.Change(newModel)
 	return nil
 }

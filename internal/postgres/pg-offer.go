@@ -10,23 +10,23 @@ type PgOffer struct {
 	ID int
 }
 
-func (p PgOffer) Model() *offer.OfferModel {
+func (pgOffer *PgOffer) Model() *offer.OfferModel {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (p PgOffer) Address() common.Address {
-	return PgAddress{p.DB, p.tableEntity()}
+func (pgOffer *PgOffer) Address() common.Address {
+	return &PgAddress{pgOffer.DB, pgOffer.tableEntity()}
 }
 
-func (p PgOffer) Position() common.Position {
-	return PgPosition{p.DB, p.tableEntity()}
+func (pgOffer *PgOffer) Position() common.Position {
+	return &PgPosition{pgOffer.DB, pgOffer.tableEntity()}
 }
 
-func (p PgOffer) Price() common.Price {
-	return PgPrice{p.DB, p.tableEntity()}
+func (pgOffer *PgOffer) Price() common.Price {
+	return &PgPrice{pgOffer.DB, pgOffer.tableEntity()}
 }
 
-func (p PgOffer) tableEntity() TableEntity {
-	return p.DB.tableEntity("offer", p.ID)
+func (pgOffer *PgOffer) tableEntity() TableEntity {
+	return pgOffer.DB.tableEntity("offer", pgOffer.ID)
 }
