@@ -13,7 +13,7 @@ func NewPgGlobalOffers(DB *PgDb) offer.GlobalOffers {
 	return &PgGlobalOffers{DB}
 }
 
-func (globalOffers *PgGlobalOffers) NearBy(radar *common.RadarModel) ([]offer.Offer, error) {
+func (globalOffers *PgGlobalOffers) NearBy(radar *common.RadarModel) (*[]offer.Offer, error) {
 	id := 0
 	query := "select * from offer"
 	offers := []offer.Offer{}
@@ -54,5 +54,5 @@ func (globalOffers *PgGlobalOffers) NearBy(radar *common.RadarModel) ([]offer.Of
 			id)
 		offers = append(offers, solidOffer)
 	}
-	return offers, nil
+	return &offers, nil
 }
