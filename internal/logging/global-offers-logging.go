@@ -17,7 +17,7 @@ func NewGlobalOffersLogger(next offer.GlobalOffers) offer.GlobalOffers {
 	}
 }
 
-func (g *GlobalOffersLogger) NearBy(position *common.RadarModel) (*[]offer.Offer, error) {
+func (g *GlobalOffersLogger) NearBy(position *common.RadarModel) ([]offer.Offer, error) {
 	defer func(start time.Time) {
 		fmt.Printf("Searching for offers took %v\n", time.Since(start))
 	}(time.Now())

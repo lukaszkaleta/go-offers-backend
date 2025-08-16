@@ -18,6 +18,7 @@ func OfferHints(offers []Offer) []*OfferHint {
 	var hints []*OfferHint
 	for _, o := range offers {
 		if o != nil {
+
 			hints = append(hints, o.Model().Hint()) // note the = instead of :=
 		}
 	}
