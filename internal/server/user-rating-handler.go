@@ -22,8 +22,8 @@ func (apiServer *APIServer) handleUserRating(
 		return fmt.Errorf("invalid user rating id: %s", ratingIdStr)
 	}
 
-	ratingPayload := new(rating.Rating)
-	if err := json.NewDecoder(r.Body).Decode(ratingPayload); err != nil {
+	newModel := new(rating.RatingModel)
+	if err := json.NewDecoder(r.Body).Decode(newModel); err != nil {
 		return err
 	}
 
@@ -35,7 +35,7 @@ func (apiServer *APIServer) handleUserRating(
 	if err != nil {
 
 	}
-	userRating.Update(*ratingPayload)
+	userRating.Update(newModel)
 
-	return WriteJson(w, http.StatusOK, ratingPayload)
+	return WriteJson(w, http.StatusOK, newModel)
 }

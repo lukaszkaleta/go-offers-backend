@@ -27,7 +27,7 @@ func (pgOffers *PgOffers) AddFromPosition(model *common.PositionModel) (offer.Of
 			Address:  &common.AddressModel{},
 			Price:    &common.PriceModel{},
 		},
-		pgOffer,
+		&pgOffer,
 		offerId,
 	), nil
 }

@@ -19,7 +19,7 @@ func (pgUsers *PgUsers) Add(model *common.PersonModel) (user.User, error) {
 	query := "INSERT INTO users(person_first_name, person_last_name, person_email, person_phone) VALUES( $1, $2, $3, $4 ) returning id"
 	row := pgUsers.DB.Database.QueryRow(query, model.FirstName, model.LastName, model.Email, model.Phone)
 	row.Scan(&userId)
-	pgUser := PgUser{
+	pgUser := &PgUser{
 		DB: pgUsers.DB,
 		ID: userId,
 	}
@@ -47,7 +47,7 @@ func (pgUsers *PgUsers) ById(id int) (user.User, error) {
 		&addressRow.PostalCode,
 		&addressRow.District,
 	)
-	pgUser := PgUser{DB: pgUsers.DB, ID: id}
+	pgUser := &PgUser{DB: pgUsers.DB, ID: id}
 	if err != nil {
 		return pgUser, err
 	}
@@ -75,7 +75,7 @@ func (pgUsers *PgUsers) ListAll() ([]user.User, error) {
 			return nil, err
 		}
 		pgUser := PgUser{DB: pgUsers.DB, ID: id}
-		solidUser := user.NewSolidUser(userModel, pgUser, id)
+		solidUser := user.NewSolidUser(userModel, &pgUser, id)
 		users = append(users, solidUser)
 	}
 	return users, nil

@@ -13,7 +13,7 @@ type PgUser struct {
 }
 
 func (pgUser *PgUser) Address() common.Address {
-	return PgAddress{pgUser.DB, pgUser.tableEntity()}
+	return &PgAddress{pgUser.DB, pgUser.tableEntity()}
 }
 
 func (pgUser *PgUser) Model() *user.UserModel {
@@ -21,7 +21,7 @@ func (pgUser *PgUser) Model() *user.UserModel {
 }
 
 func (pgUser *PgUser) Person() common.Person {
-	return PgPerson{pgUser.DB, pgUser.tableEntity()}
+	return &PgPerson{pgUser.DB, pgUser.tableEntity()}
 }
 
 func (pgUser *PgUser) Ratings() rating.Ratings {
