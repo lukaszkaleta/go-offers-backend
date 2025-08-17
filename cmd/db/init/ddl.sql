@@ -16,6 +16,8 @@ CREATE TABLE if not exists users (
 
 CREATE TABLE if not exists offer (
     id serial primary key,
+    description_value text not null default '',
+    description_image_url text not null default '',
     address_line1 text not null default '',
     address_line2 text not null default '',
     address_city       text not null default '',

@@ -55,3 +55,17 @@ func randomOffers() []OfferHint {
 	}
 	return offers
 }
+
+var descriptions = [5]common.DescriptionModel{
+	{Value: "Please take care of mine lawn", ImageUrl: "https://gardenpro.ie/wp-content/uploads/2022/02/Grass-Cutting.jpg.webp"},
+	{Value: "Clean park area", ImageUrl: "https://gardenpro.ie/wp-content/uploads/2022/02/istockphoto-1223413749-612x612-1.jpg.webp"},
+	{Value: "Cut branches in Highhliand park", ImageUrl: "https://gardenpro.ie/wp-content/uploads/2022/02/Tree-Cutting.jpg.webp"},
+	{Value: "Swipe driveway", ImageUrl: "https://gardenpro.ie/wp-content/uploads/2022/02/Garden-Clearance-Dublin.jpg.webp"},
+	{Value: "Remove leafs from garden", ImageUrl: "https://gardenpro.ie/wp-content/uploads/2022/02/Garden-Clearance-Services.jpg.webp"},
+}
+
+func RandomDescription() *common.DescriptionModel {
+	index := rand.Intn(5)
+	model := descriptions[index]
+	return &model
+}

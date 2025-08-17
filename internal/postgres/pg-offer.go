@@ -27,6 +27,10 @@ func (pgOffer *PgOffer) Price() common.Price {
 	return &PgPrice{pgOffer.DB, pgOffer.tableEntity()}
 }
 
+func (pgOffer *PgOffer) Description() common.Description {
+	return &PgDescription{pgOffer.DB, pgOffer.tableEntity()}
+}
+
 func (pgOffer *PgOffer) tableEntity() TableEntity {
 	return pgOffer.DB.tableEntity("offer", pgOffer.ID)
 }

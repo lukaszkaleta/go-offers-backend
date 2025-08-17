@@ -23,11 +23,14 @@ func (globalOffers *PgGlobalOffers) NearBy(radar *common.RadarModel) ([]offer.Of
 	}
 
 	for rows.Next() {
+		descriptionRow := new(common.DescriptionModel)
 		addressRow := new(common.AddressModel)
 		priceRow := new(common.PriceModel)
 		positionRow := new(common.PositionModel)
 		err := rows.Scan(
 			&id,
+			&descriptionRow.Value,
+			&descriptionRow.ImageUrl,
 			&addressRow.Line1,
 			&addressRow.Line2,
 			&addressRow.City,
@@ -45,10 +48,11 @@ func (globalOffers *PgGlobalOffers) NearBy(radar *common.RadarModel) ([]offer.Of
 
 		solidOffer := offer.NewSolidOffer(
 			&offer.OfferModel{
-				Id:       id,
-				Address:  addressRow,
-				Price:    priceRow,
-				Position: positionRow,
+				Id:          id,
+				Description: descriptionRow,
+				Address:     addressRow,
+				Price:       priceRow,
+				Position:    positionRow,
 			},
 			pgOffer,
 			id)

@@ -18,8 +18,8 @@ func RadarFromModel(model *RadarModel) Radar {
 // Model
 
 type RadarModel struct {
-	Position  *PositionModel
-	Perimeter int
+	Position  *PositionModel `json:"position"`
+	Perimeter int            `json:"perimeter"`
 }
 
 func (model *RadarModel) Change(newModel *RadarModel) {

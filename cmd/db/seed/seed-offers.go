@@ -17,6 +17,10 @@ func SeedOffers(user user.User) error {
 		if err != nil {
 			return err
 		}
+		err = o.Description().Update(offer.RandomDescription())
+		if err != nil {
+			return err
+		}
 	}
 	return nil
 }
