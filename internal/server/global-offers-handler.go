@@ -38,7 +38,12 @@ func (s *APIServer) handleGlobalOffersNearByForMap(w http.ResponseWriter, r *htt
 }
 
 func (s *APIServer) handleGlobalOfferPreview(w http.ResponseWriter, r *http.Request) error {
-	return WriteJson(w, http.StatusOK, nil)
+	_, offerId, err := s.NamedId("offerId", r)
+	offer, err := s.GlobalOffers.ById(offerId)
+	if err != nil {
+		return err
+	}
+	return WriteJson(w, http.StatusOK, offer.Model())
 }
 
 func (s *APIServer) handleVipsCallback(w http.ResponseWriter, r *http.Request) error {

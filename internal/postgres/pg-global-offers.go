@@ -60,3 +60,50 @@ func (globalOffers *PgGlobalOffers) NearBy(radar *common.RadarModel) ([]offer.Of
 	}
 	return offers, nil
 }
+
+func (globalOffers *PgGlobalOffers) ById(id int) (offer.Offer, error) {
+	query := "select * from offer where id = $1"
+	rows, err := globalOffers.DB.Database.Query(query)
+	if err != nil {
+		return nil, err
+	}
+	if rows.Next() {
+		return nil, nil
+	}
+
+	descriptionRow := new(common.DescriptionModel)
+	addressRow := new(common.AddressModel)
+	priceRow := new(common.PriceModel)
+	positionRow := new(common.PositionModel)
+	err = rows.Scan(
+		&id,
+		&descriptionRow.Value,
+		&descriptionRow.ImageUrl,
+		&addressRow.Line1,
+		&addressRow.Line2,
+		&addressRow.City,
+		&addressRow.PostalCode,
+		&addressRow.District,
+		&positionRow.Lat,
+		&positionRow.Lon,
+		&priceRow.Value,
+		&priceRow.Currency,
+	)
+	pgOffer := &PgOffer{DB: globalOffers.DB, ID: id}
+	if err != nil {
+		return nil, err
+	}
+
+	solidOffer := offer.NewSolidOffer(
+		&offer.OfferModel{
+			Id:          id,
+			Description: descriptionRow,
+			Address:     addressRow,
+			Price:       priceRow,
+			Position:    positionRow,
+		},
+		pgOffer,
+		id)
+
+	return solidOffer, nil
+}
